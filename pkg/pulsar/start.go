@@ -28,6 +28,7 @@ func Config() error {
 	configProp.Set("zookeeperServers", config.ZkAddress)
 	configProp.Set("configurationStoreServers", config.ZkAddress)
 	configProp.Set("clusterName", config.ClusterName)
+	configProp.Set("allowAutoTopicCreationType", "partitioned")
 	return configProp.Write(path.PulsarConfig)
 }
 
