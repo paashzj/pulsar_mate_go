@@ -27,18 +27,23 @@ func main() {
 			os.Exit(1)
 		}
 	}
+	if config.Function {
+		err := util.CallScript(path.PulsarStartFunctionScript)
+		if err != nil {
+			util.Logger().Error("start pulsar function server failed ", zap.Error(err))
+			os.Exit(1)
+		}
+	}
 	if config.ClusterEnable {
 		err := util.CallScript(path.PulsarStartScript)
 		if err != nil {
 			util.Logger().Error("start pulsar server failed ", zap.Error(err))
-		} else {
 			os.Exit(1)
 		}
 	} else {
 		err := util.CallScript(path.PulsarStartStandaloneScript)
 		if err != nil {
 			util.Logger().Error("start pulsar server failed ", zap.Error(err))
-		} else {
 			os.Exit(1)
 		}
 	}

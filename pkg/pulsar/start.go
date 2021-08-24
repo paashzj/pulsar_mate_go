@@ -13,6 +13,14 @@ import (
 )
 
 func Config() error {
+	if config.Function {
+		return configBroker()
+	} else {
+		return configFunction()
+	}
+}
+
+func configBroker() error {
 	if !config.ClusterEnable {
 		return nil
 	}
