@@ -11,9 +11,9 @@ import (
 
 func Config() error {
 	if config.Function {
-		return configBroker()
-	} else {
 		return configFunction()
+	} else {
+		return configBroker()
 	}
 }
 
