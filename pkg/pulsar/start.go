@@ -4,12 +4,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/paashzj/gutil"
-	"io/ioutil"
 	"net"
 	"pulsar_mate_go/pkg/config"
 	"pulsar_mate_go/pkg/path"
-	"pulsar_mate_go/pkg/util"
-	"strings"
 )
 
 func Config() error {
@@ -24,7 +21,7 @@ func configBroker() error {
 	if !config.ClusterEnable {
 		return nil
 	}
-	configProp, err := initFromFile(path.PulsarOriginalConfig)
+	configProp, err := gutil.ConfigPropFromFile(path.PulsarOriginalConfig)
 	if err != nil {
 		return err
 	}
@@ -38,28 +35,6 @@ func configBroker() error {
 	configProp.Set("clusterName", config.ClusterName)
 	configProp.Set("allowAutoTopicCreationType", "partitioned")
 	return configProp.Write(path.PulsarConfig)
-}
-
-func initFromFile(file string) (*gutil.ConfigProperties, error) {
-	configProp := gutil.ConfigProperties{}
-	configProp.Init()
-	fileBytes, err := ioutil.ReadFile(file)
-	if err != nil {
-		return nil, err
-	}
-	split := strings.Split(string(fileBytes), "\n")
-	for _, line := range split {
-		if strings.HasPrefix(line, "#") {
-			continue
-		}
-		array := strings.Split(line, "=")
-		if len(array) != 2 {
-			util.Logger().Error(fmt.Sprintf("line error %s", line))
-			continue
-		}
-		configProp.Set(array[0], array[1])
-	}
-	return &configProp, nil
 }
 
 // GetInterfaceIpv4Addr useful links:

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/paashzj/gutil"
 	"go.uber.org/zap"
 	"os"
 	"os/signal"
@@ -19,29 +20,32 @@ func main() {
 		util.Logger().Error("generate config failed ", zap.Error(err))
 	}
 	if config.ClusterInit {
-		err := util.CallScript(path.PulsarInitScript)
+		stdout, stderr, err := gutil.CallScript(path.PulsarInitScript)
+		util.Logger().Error("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
 		if err != nil {
 			util.Logger().Error("pulsar server init failed ", zap.Error(err))
-			os.Exit(0)
 		} else {
-			os.Exit(1)
+			os.Exit(0)
 		}
 	}
 	if config.Function {
-		err := util.CallScript(path.PulsarStartFunctionScript)
+		stdout, stderr, err := gutil.CallScript(path.PulsarStartFunctionScript)
+		util.Logger().Error("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
 		if err != nil {
 			util.Logger().Error("start pulsar function server failed ", zap.Error(err))
 			os.Exit(1)
 		}
 	}
 	if config.ClusterEnable {
-		err := util.CallScript(path.PulsarStartScript)
+		stdout, stderr, err := gutil.CallScript(path.PulsarStartScript)
+		util.Logger().Error("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
 		if err != nil {
 			util.Logger().Error("start pulsar server failed ", zap.Error(err))
 			os.Exit(1)
 		}
 	} else {
-		err := util.CallScript(path.PulsarStartStandaloneScript)
+		stdout, stderr, err := gutil.CallScript(path.PulsarStartStandaloneScript)
+		util.Logger().Error("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
 		if err != nil {
 			util.Logger().Error("start pulsar server failed ", zap.Error(err))
 			os.Exit(1)

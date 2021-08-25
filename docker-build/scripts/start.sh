@@ -1,5 +1,8 @@
 #!/bin/bash
 
-DIR="$( cd "$( dirname "$0"  )" && pwd  )"
-bash -x $DIR/start-daemon.sh
-tail -f /dev/null
+if [ $CLUSTER_INIT == "true" ]; then
+    $PULSAR_HOME/mate/pulsar_mate 2>&1
+else
+    nohup $PULSAR_HOME/mate/pulsar_mate >$PULSAR_HOME/pulsar_mate.stdout.log 2>$PULSAR_HOME/pulsar_mate.stderr.log
+    tail -f /dev/null
+fi
