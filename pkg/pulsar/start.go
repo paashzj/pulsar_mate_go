@@ -1,64 +1,46 @@
 package pulsar
 
 import (
-	"errors"
-	"fmt"
 	"github.com/paashzj/gutil"
-	"net"
+	"go.uber.org/zap"
+	"os"
 	"pulsar_mate_go/pkg/config"
 	"pulsar_mate_go/pkg/path"
+	"pulsar_mate_go/pkg/util"
 )
 
-func Config() error {
-	if config.Function {
-		return configBroker()
+func StartInit() {
+	stdout, stderr, err := gutil.CallScript(path.PulsarInitScript)
+	util.Logger().Error("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
+	if err != nil {
+		util.Logger().Error("pulsar cluster init failed ", zap.Error(err))
 	} else {
-		return configFunction()
+		os.Exit(0)
 	}
 }
 
-func configBroker() error {
-	if !config.ClusterEnable {
-		return nil
-	}
-	configProp, err := gutil.ConfigPropFromFile(path.PulsarOriginalConfig)
-	if err != nil {
-		return err
-	}
-	ipv4Addr, err := GetInterfaceIpv4Addr("eth0")
-	if err != nil {
-		return err
-	}
-	configProp.Set("advertisedAddress", ipv4Addr)
-	configProp.Set("zookeeperServers", config.ZkAddress)
-	configProp.Set("configurationStoreServers", config.ZkAddress)
-	configProp.Set("clusterName", config.ClusterName)
-	configProp.Set("allowAutoTopicCreationType", "partitioned")
-	return configProp.Write(path.PulsarConfig)
-}
-
-// GetInterfaceIpv4Addr useful links:
-// https://stackoverflow.com/questions/27410764/dial-with-a-specific-address-interface-golang
-// https://stackoverflow.com/questions/22751035/golang-distinguish-ipv4-ipv6
-func GetInterfaceIpv4Addr(interfaceName string) (addr string, err error) {
-	var (
-		ief      *net.Interface
-		addrs    []net.Addr
-		ipv4Addr net.IP
-	)
-	if ief, err = net.InterfaceByName(interfaceName); err != nil { // get interface
-		return
-	}
-	if addrs, err = ief.Addrs(); err != nil { // get addresses
-		return
-	}
-	for _, addr := range addrs { // get ipv4 address
-		if ipv4Addr = addr.(*net.IPNet).IP.To4(); ipv4Addr != nil {
-			break
+func StartOther() {
+	if config.Function {
+		stdout, stderr, err := gutil.CallScript(path.PulsarStartFunctionScript)
+		util.Logger().Error("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
+		if err != nil {
+			util.Logger().Error("start pulsar function server failed ", zap.Error(err))
+			os.Exit(1)
 		}
 	}
-	if ipv4Addr == nil {
-		return "", errors.New(fmt.Sprintf("interface %s don't have an ipv4 address\n", interfaceName))
+	if config.ClusterEnable {
+		stdout, stderr, err := gutil.CallScript(path.PulsarStartScript)
+		util.Logger().Error("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
+		if err != nil {
+			util.Logger().Error("start pulsar server failed ", zap.Error(err))
+			os.Exit(1)
+		}
+	} else {
+		stdout, stderr, err := gutil.CallScript(path.PulsarStartStandaloneScript)
+		util.Logger().Error("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
+		if err != nil {
+			util.Logger().Error("start pulsar server failed ", zap.Error(err))
+			os.Exit(1)
+		}
 	}
-	return ipv4Addr.String(), nil
 }
