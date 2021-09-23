@@ -3,38 +3,28 @@ package pulsar
 import (
 	"errors"
 	"fmt"
-	"github.com/paashzj/gutil"
 	"net"
 	"pulsar_mate_go/pkg/config"
-	"pulsar_mate_go/pkg/path"
+	"pulsar_mate_go/pkg/util"
 )
 
 func Config() error {
-	if config.Function {
-		return configFunction()
-	} else {
-		return configBroker()
+	util.Logger().Info("begin to generate or refresh config")
+	err := configClient()
+	if err != nil {
+		return err
 	}
-}
-
-func configBroker() error {
 	if !config.ClusterEnable {
-		return nil
+		if config.Function {
+			return configFunctionStandalone()
+		}
+		return configBrokerStandalone()
 	}
-	configProp, err := gutil.ConfigPropFromFile(path.PulsarOriginalConfig)
-	if err != nil {
-		return err
+	if config.Function {
+		return configFunctionCluster()
+	} else {
+		return configBrokerCluster()
 	}
-	ipv4Addr, err := GetInterfaceIpv4Addr("eth0")
-	if err != nil {
-		return err
-	}
-	configProp.Set("advertisedAddress", ipv4Addr)
-	configProp.Set("zookeeperServers", config.ZkAddress)
-	configProp.Set("configurationStoreServers", config.ZkAddress)
-	configProp.Set("clusterName", config.ClusterName)
-	configProp.Set("allowAutoTopicCreationType", "partitioned")
-	return configProp.Write(path.PulsarConfig)
 }
 
 // GetInterfaceIpv4Addr useful links:

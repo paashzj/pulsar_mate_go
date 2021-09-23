@@ -1,0 +1,17 @@
+services:
+  pulsar:
+    image: ttbb/pulsar:mate
+    stdin_open: true
+    tty: true
+    environment:
+      "PULSAR_MEM": "-Xmx512m -XX:MaxDirectMemorySize=128m"
+      "PULSAR_AUTHENTICATION_ENABLED": "true"
+      "PULSAR_AUTHENTICATION_PROVIDERS": "org.apache.pulsar.broker.authentication.AuthenticationProviderToken"
+      "PULSAR_AUTHORIZATION_ENABLED": "true"
+      "PULSAR_TOKEN_SECRET_KEY": "file:///opt/sh/pulsar/secret.key"
+      "PULSAR_SUPER_USER_ROLES": "root"
+      "PULSAR_CLIENT_AUTH_PLUGIN": "org.apache.pulsar.client.impl.auth.AuthenticationToken"
+    ports:
+      - "6650:6650"
+      - "8080:8080"
+      - "8081:8081"

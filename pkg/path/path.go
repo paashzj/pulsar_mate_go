@@ -7,11 +7,15 @@ import (
 
 // pulsar
 var (
-	PulsarHome                   = os.Getenv("PULSAR_HOME")
-	PulsarConfigDir              = filepath.FromSlash(PulsarHome + "/conf")
-	PulsarConfig                 = filepath.FromSlash(PulsarConfigDir + "/broker.conf")
-	PulsarOriginalConfig         = filepath.FromSlash(PulsarConfigDir + "/broker_original.conf")
-	PulsarFunctionOriginalConfig = filepath.FromSlash(PulsarConfigDir + "/function_original.yaml")
+	PulsarHome                     = os.Getenv("PULSAR_HOME")
+	PulsarConfigDir                = filepath.FromSlash(PulsarHome + "/conf")
+	PulsarConfig                   = filepath.FromSlash(PulsarConfigDir + "/broker.conf")
+	PulsarOriginalConfig           = filepath.FromSlash(PulsarConfigDir + "/broker_original.conf")
+	PulsarStandaloneConfig         = filepath.FromSlash(PulsarConfigDir + "/standalone.conf")
+	PulsarStandaloneOriginalConfig = filepath.FromSlash(PulsarConfigDir + "/standalone_original.conf")
+	PulsarFunctionOriginalConfig   = filepath.FromSlash(PulsarConfigDir + "/function_original.yaml")
+	PulsarClientConfig             = filepath.FromSlash(PulsarConfigDir + "/client.conf")
+	PulsarClientOriginalConfig     = filepath.FromSlash(PulsarConfigDir + "/client_original.conf")
 )
 
 // mate
