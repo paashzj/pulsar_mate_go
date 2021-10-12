@@ -42,4 +42,6 @@ func configBrokerCommon(prop *gutil.ConfigProperties) {
 	prop.Set("tokenSecretKey", config.PulsarTokenSecretKey)
 	prop.Set("superUserRoles", config.PulsarSuperUserRoles)
 	prop.Set("brokerClientAuthenticationPlugin", config.PulsarClientAuthPlugin)
+	prop.SetBool("allowAutoTopicCreation", config.PulsarAllowAutoTopicCreation)
+	prop.SetBool("brokerDeleteInactivePartitionedTopicMetadataEnabled", config.PulsarBrokerDeleteInactivePartitionedTopicMetadataEnabled)
 }

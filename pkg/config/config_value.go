@@ -4,18 +4,20 @@ import "github.com/paashzj/gutil"
 
 // pulsar config
 var (
-	ClusterEnable                 bool
-	ClusterInit                   bool
-	Function                      bool
-	ZkAddress                     string
-	ClusterName                   string
-	Spec                          string
-	PulsarAuthenticationEnabled   bool
-	PulsarAuthenticationProviders string
-	PulsarAuthorizationEnabled    bool
-	PulsarTokenSecretKey          string
-	PulsarSuperUserRoles          string
-	PulsarClientAuthPlugin        string
+	ClusterEnable                                             bool
+	ClusterInit                                               bool
+	Function                                                  bool
+	ZkAddress                                                 string
+	ClusterName                                               string
+	Spec                                                      string
+	PulsarAuthenticationEnabled                               bool
+	PulsarAuthenticationProviders                             string
+	PulsarAuthorizationEnabled                                bool
+	PulsarTokenSecretKey                                      string
+	PulsarSuperUserRoles                                      string
+	PulsarClientAuthPlugin                                    string
+	PulsarAllowAutoTopicCreation                              bool
+	PulsarBrokerDeleteInactivePartitionedTopicMetadataEnabled bool
 )
 
 func init() {
@@ -31,4 +33,6 @@ func init() {
 	PulsarTokenSecretKey = gutil.GetEnvStr("PULSAR_TOKEN_SECRET_KEY", "")
 	PulsarSuperUserRoles = gutil.GetEnvStr("PULSAR_SUPER_USER_ROLES", "")
 	PulsarClientAuthPlugin = gutil.GetEnvStr("PULSAR_CLIENT_AUTH_PLUGIN", "")
+	PulsarAllowAutoTopicCreation = gutil.GetEnvBool("PULSAR_ALLOW_AUTO_TOPIC_CREATION", true)
+	PulsarBrokerDeleteInactivePartitionedTopicMetadataEnabled = gutil.GetEnvBool("PULSAR_BROKER_DELETE_INACTIVE_PARTITIONED_TOPIC_METADATA_ENABLED", false)
 }
