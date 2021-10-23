@@ -20,10 +20,12 @@ var (
 
 // mate
 var (
-	PulsarMatePath              = filepath.FromSlash(PulsarHome + "/mate")
-	PulsarScripts               = filepath.FromSlash(PulsarMatePath + "/scripts")
-	PulsarInitScript            = filepath.FromSlash(PulsarScripts + "/init-pulsar.sh")
-	PulsarStartScript           = filepath.FromSlash(PulsarScripts + "/start-pulsar.sh")
-	PulsarStartStandaloneScript = filepath.FromSlash(PulsarScripts + "/start-pulsar-standalone.sh")
-	PulsarStartFunctionScript   = filepath.FromSlash(PulsarScripts + "/start-pulsar-function.sh")
+	PulsarMatePath                    = filepath.FromSlash(PulsarHome + "/mate")
+	PulsarScripts                     = filepath.FromSlash(PulsarMatePath + "/scripts")
+	PulsarInitScript                  = filepath.FromSlash(PulsarScripts + "/init-pulsar.sh")
+	PulsarStartClusterAllScript       = filepath.FromSlash(PulsarScripts + "/start-pulsar-cluster-all.sh")
+	PulsarStartClusterBrokerScript    = filepath.FromSlash(PulsarScripts + "/start-pulsar-cluster-broker.sh")
+	PulsarStartClusterFunctionScript  = filepath.FromSlash(PulsarScripts + "/start-pulsar-cluster-function.sh")
+	PulsarStartStandaloneAllScript    = filepath.FromSlash(PulsarScripts + "/start-pulsar-standalone-all.sh")
+	PulsarStartStandaloneBrokerScript = filepath.FromSlash(PulsarScripts + "/start-pulsar-standalone-broker.sh")
 )

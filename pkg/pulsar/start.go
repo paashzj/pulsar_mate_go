@@ -20,27 +20,27 @@ func StartInit() {
 }
 
 func StartOther() {
-	if config.Function {
-		stdout, stderr, err := gutil.CallScript(path.PulsarStartFunctionScript)
-		if err != nil {
-			util.Logger().Error("start pulsar function server failed ", zap.Error(err))
-			os.Exit(1)
-		}
-		util.Logger().Info("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
-	}
 	if config.ClusterEnable {
-		stdout, stderr, err := gutil.CallScript(path.PulsarStartScript)
-		util.Logger().Info("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
-		if err != nil {
-			util.Logger().Error("start pulsar server failed ", zap.Error(err))
-			os.Exit(1)
+		if config.Role == "all" {
+			startScript(path.PulsarStartClusterAllScript)
+		} else if config.Role == "broker" {
+			startScript(path.PulsarStartClusterBrokerScript)
+		} else if config.Role == "function" {
+			startScript(path.PulsarStartClusterFunctionScript)
 		}
-	} else {
-		stdout, stderr, err := gutil.CallScript(path.PulsarStartStandaloneScript)
-		util.Logger().Info("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
-		if err != nil {
-			util.Logger().Error("start pulsar server failed ", zap.Error(err))
-			os.Exit(1)
-		}
+	}
+	if config.Role == "all" {
+		startScript(path.PulsarStartStandaloneAllScript)
+	} else if config.Role == "broker" {
+		startScript(path.PulsarStartStandaloneBrokerScript)
+	}
+}
+
+func startScript(script string) {
+	stdout, stderr, err := gutil.CallScript(script)
+	util.Logger().Info("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
+	if err != nil {
+		util.Logger().Error("start pulsar server failed ", zap.Error(err))
+		os.Exit(1)
 	}
 }

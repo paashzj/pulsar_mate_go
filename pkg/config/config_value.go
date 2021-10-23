@@ -6,7 +6,7 @@ import "github.com/paashzj/gutil"
 var (
 	ClusterEnable                                             bool
 	ClusterInit                                               bool
-	Function                                                  bool
+	Role                                                      string
 	ZkAddress                                                 string
 	ClusterName                                               string
 	Spec                                                      string
@@ -23,7 +23,7 @@ var (
 func init() {
 	ClusterEnable = gutil.GetEnvBool("CLUSTER_ENABLE", false)
 	ClusterInit = gutil.GetEnvBool("CLUSTER_INIT", false)
-	Function = gutil.GetEnvBool("PULSAR_FUNCTION", false)
+	Role = gutil.GetEnvStr("PULSAR_ROLE", "all")
 	ZkAddress = gutil.GetEnvStr("ZK_ADDR", "")
 	ClusterName = gutil.GetEnvStr("CLUSTER_NAME", "pulsar")
 	Spec = gutil.GetEnvStr("SPEC", "SMALL")

@@ -7,6 +7,34 @@ import (
 	"pulsar_mate_go/pkg/util"
 )
 
+func configBrokerStandaloneWithFunction() error {
+	util.Logger().Info("begin to generate or refresh broker standalone config")
+	configProp, err := gutil.ConfigPropFromFile(path.PulsarStandaloneOriginalConfig)
+	if err != nil {
+		return err
+	}
+	configBrokerWithFunctionCommon(configProp)
+	return configProp.Write(path.PulsarStandaloneConfig)
+}
+
+func configBrokerClusterWithFunction() error {
+	configProp, err := gutil.ConfigPropFromFile(path.PulsarOriginalConfig)
+	if err != nil {
+		return err
+	}
+	ipv4Addr, err := GetInterfaceIpv4Addr("eth0")
+	if err != nil {
+		return err
+	}
+	configProp.Set("advertisedAddress", ipv4Addr)
+	configProp.Set("zookeeperServers", config.ZkAddress)
+	configProp.Set("configurationStoreServers", config.ZkAddress)
+	configProp.Set("clusterName", config.ClusterName)
+	configProp.Set("allowAutoTopicCreationType", "partitioned")
+	configBrokerWithFunctionCommon(configProp)
+	return configProp.Write(path.PulsarConfig)
+}
+
 func configBrokerStandalone() error {
 	util.Logger().Info("begin to generate or refresh broker standalone config")
 	configProp, err := gutil.ConfigPropFromFile(path.PulsarStandaloneOriginalConfig)
@@ -33,6 +61,10 @@ func configBrokerCluster() error {
 	configProp.Set("allowAutoTopicCreationType", "partitioned")
 	configBrokerCommon(configProp)
 	return configProp.Write(path.PulsarConfig)
+}
+
+func configBrokerWithFunctionCommon(prop *gutil.ConfigProperties) {
+	configBrokerCommon(prop)
 }
 
 func configBrokerCommon(prop *gutil.ConfigProperties) {

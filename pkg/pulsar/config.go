@@ -15,15 +15,22 @@ func Config() error {
 		return err
 	}
 	if !config.ClusterEnable {
-		if config.Function {
-			return configFunctionStandalone()
+		if config.Role == "all" {
+			return configBrokerStandaloneWithFunction()
+		} else if config.Role == "broker" {
+			return configBrokerStandalone()
+		} else {
+			return errors.New(fmt.Sprintf("Standalone can't support role %s", config.Role))
 		}
-		return configBrokerStandalone()
 	}
-	if config.Function {
+	if config.Role == "all" {
+		return configBrokerClusterWithFunction()
+	} else if config.Role == "broker" {
+		return configBrokerCluster()
+	} else if config.Role == "function" {
 		return configFunctionCluster()
 	} else {
-		return configBrokerCluster()
+		return errors.New(fmt.Sprintf("Cluster can't support role %s", config.Role))
 	}
 }
 
