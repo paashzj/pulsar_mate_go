@@ -21,4 +21,4 @@ COPY config/standalone_original.conf /opt/sh/pulsar/conf/standalone_original.con
 
 WORKDIR /opt/sh/pulsar
 
-CMD ["/usr/local/bin/dumb-init", "bash", "-vx", "/opt/sh/pulsar/mate/scripts/start.sh"]
+CMD ["/usr/bin/dumb-init", "bash", "-vx", "/opt/sh/pulsar/mate/scripts/start.sh"]

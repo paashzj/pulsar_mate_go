@@ -13,6 +13,11 @@ func configClient() error {
 	if err != nil {
 		return err
 	}
+	if config.PulsarTlsEnable {
+		configProp.SetBool("useKeyStoreTls", true)
+		configProp.Set("tlsTrustStorePath", path.PulsarServerTrustCert)
+		configProp.Set("tlsTrustStorePassword", "pulsar_client_pwd")
+	}
 	configProp.Set("authPlugin", config.PulsarClientAuthPlugin)
 	return configProp.Write(path.PulsarClientConfig)
 }

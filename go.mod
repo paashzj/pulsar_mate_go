@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/apache/pulsar-client-go v0.6.0
-	github.com/paashzj/gutil v0.0.8
+	github.com/paashzj/gutil v0.0.9
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/zap v1.19.1
 )

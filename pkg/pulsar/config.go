@@ -28,7 +28,7 @@ func Config() error {
 	} else if config.Role == "broker" {
 		return configBrokerCluster()
 	} else if config.Role == "function" {
-		return configFunctionCluster()
+		return configFunction()
 	} else {
 		return errors.New(fmt.Sprintf("Cluster can't support role %s", config.Role))
 	}

@@ -76,4 +76,23 @@ func configBrokerCommon(prop *gutil.ConfigProperties) {
 	prop.Set("brokerClientAuthenticationPlugin", config.PulsarClientAuthPlugin)
 	prop.SetBool("allowAutoTopicCreation", config.PulsarAllowAutoTopicCreation)
 	prop.SetBool("brokerDeleteInactivePartitionedTopicMetadataEnabled", config.PulsarBrokerDeleteInactivePartitionedTopicMetadataEnabled)
+	if config.BkTlsEnable {
+		prop.Set("bookkeeperTLSKeyFilePath", path.BkClientKeyCert)
+		prop.Set("bookkeeperTLSKeyStorePasswordPath", path.BkClientKeyPassword)
+		prop.Set("bookkeeperTLSTrustCertsFilePath", path.BkClientTrustCert)
+		prop.Set("bookkeeperTLSTrustStorePasswordPath", path.BkClientTrustPassword)
+	}
+	if config.PulsarTlsEnable {
+		// client
+		prop.SetBool("brokerClientTlsEnabledWithKeyStore", true)
+		prop.Set("brokerClientTlsTrustStore", path.PulsarClientTrustCert)
+		prop.Set("brokerClientTlsTrustStorePassword", "pulsar_client_pwd")
+		// server
+		prop.SetInt("brokerServicePortTls", 6651)
+		prop.SetInt("webServicePortTls", 8081)
+		prop.Set("tlsKeyStore", path.PulsarServerKeyCert)
+		prop.Set("tlsKeyStorePassword", "pulsar_server_pwd")
+		prop.Set("tlsTrustStore", path.PulsarServerTrustCert)
+		prop.Set("tlsTrustStorePassword", "pulsar_server_pwd")
+	}
 }
