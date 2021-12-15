@@ -27,6 +27,8 @@ func StartOther() {
 			startScript(path.PulsarStartClusterBrokerScript)
 		} else if config.Role == "function" {
 			startScript(path.PulsarStartClusterFunctionScript)
+		} else if config.Role == "proxy" {
+			startScript(path.PulsarStartClusterProxyScript)
 		}
 	}
 	if config.Role == "all" {
