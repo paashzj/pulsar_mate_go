@@ -68,6 +68,7 @@ func configBrokerWithFunctionCommon(prop *gutil.ConfigProperties) {
 }
 
 func configBrokerCommon(prop *gutil.ConfigProperties) {
+	prop.Set("advertisedAddress", config.PulsarAdvertisedAddress)
 	prop.SetBool("authenticationEnabled", config.PulsarAuthenticationEnabled)
 	prop.Set("authenticationProviders", config.PulsarAuthenticationProviders)
 	prop.SetBool("authorizationEnabled", config.PulsarAuthorizationEnabled)

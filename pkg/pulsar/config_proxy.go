@@ -22,5 +22,6 @@ func configProxy() error {
 	configProp.Set("zookeeperServers", config.ZkAddress)
 	configProp.Set("configurationStoreServers", config.ZkAddress)
 	configProp.Set("clusterName", config.ClusterName)
+	configProp.Set("advertisedAddress", config.PulsarAdvertisedAddress)
 	return configProp.Write(path.PulsarProxyConfig)
 }

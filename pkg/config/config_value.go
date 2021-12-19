@@ -10,6 +10,7 @@ var (
 	ZkAddress                                                 string
 	ClusterName                                               string
 	Spec                                                      string
+	PulsarAdvertisedAddress                                   string
 	PulsarAuthenticationEnabled                               bool
 	PulsarAuthenticationProviders                             string
 	PulsarAuthorizationEnabled                                bool
@@ -34,6 +35,7 @@ func init() {
 	ZkAddress = gutil.GetEnvStr("ZK_ADDR", "")
 	ClusterName = gutil.GetEnvStr("CLUSTER_NAME", "pulsar")
 	Spec = gutil.GetEnvStr("SPEC", "SMALL")
+	PulsarAdvertisedAddress = gutil.GetEnvStr("PULSAR_ADVERTISED_ADDRESS", "")
 	PulsarAuthenticationEnabled = gutil.GetEnvBool("PULSAR_AUTHENTICATION_ENABLED", false)
 	PulsarAuthenticationProviders = gutil.GetEnvStr("PULSAR_AUTHENTICATION_PROVIDERS", "")
 	PulsarAuthorizationEnabled = gutil.GetEnvBool("PULSAR_AUTHORIZATION_ENABLED", false)
