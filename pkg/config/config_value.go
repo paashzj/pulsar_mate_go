@@ -18,6 +18,7 @@ var (
 	PulsarClientAuthPlugin                                    string
 	PulsarAllowAutoTopicCreation                              bool
 	PulsarBrokerDeleteInactivePartitionedTopicMetadataEnabled bool
+	PulsarTlsAllowInsecureConnection                          bool
 	PulsarFunctionBrokerServerHost                            string
 	PulsarFunctionBrokerWebServiceHost                        string
 	ZkTlsEnable                                               bool
@@ -41,6 +42,7 @@ func init() {
 	PulsarClientAuthPlugin = gutil.GetEnvStr("PULSAR_CLIENT_AUTH_PLUGIN", "")
 	PulsarAllowAutoTopicCreation = gutil.GetEnvBool("PULSAR_ALLOW_AUTO_TOPIC_CREATION", true)
 	PulsarBrokerDeleteInactivePartitionedTopicMetadataEnabled = gutil.GetEnvBool("PULSAR_BROKER_DELETE_INACTIVE_PARTITIONED_TOPIC_METADATA_ENABLED", false)
+	PulsarTlsAllowInsecureConnection = gutil.GetEnvBool("PULSAR_TLS_ALLOW_INSECURE_CONNECTION", false)
 	PulsarFunctionBrokerServerHost = gutil.GetEnvStr("", "localhost")
 	PulsarFunctionBrokerWebServiceHost = gutil.GetEnvStr("", "localhost")
 	ZkTlsEnable = gutil.GetEnvBool("ZOOKEEPER_TLS_ENABLE", false)

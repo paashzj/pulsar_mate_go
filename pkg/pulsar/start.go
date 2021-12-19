@@ -30,11 +30,12 @@ func StartOther() {
 		} else if config.Role == "proxy" {
 			startScript(path.PulsarStartClusterProxyScript)
 		}
-	}
-	if config.Role == "all" {
-		startScript(path.PulsarStartStandaloneAllScript)
-	} else if config.Role == "broker" {
-		startScript(path.PulsarStartStandaloneBrokerScript)
+	} else {
+		if config.Role == "all" {
+			startScript(path.PulsarStartStandaloneAllScript)
+		} else if config.Role == "broker" {
+			startScript(path.PulsarStartStandaloneBrokerScript)
+		}
 	}
 }
 
