@@ -11,6 +11,10 @@ docker run -d --rm -e REMOTE_MODE=false ttbb/pulsar:mate
 ```bash
 docker run -p 2181:2181 -p 3181:3181 -p 4181:4181 -p 6650:6650 -p 8080:8080 --rm -e REMOTE_MODE=false ttbb/pulsar:mate
 ```
+### start with index metadata interceptor
+```bash
+docker run -p 6650:6650 -p 8080:800 --rm -e PULSAR_BROKER_ENTRY_METADATA_INTERCEPTORS=org.apache.pulsar.common.intercept.AppendIndexMetadataInterceptor -e PULSAR_EXPOSING_BROKER_ENTRY_METADATA_TO_CLIENT_ENABLED=true -e REMOTE_MODE=false ttbb/pulsar:mate
+```
 ### start port expose, tls
 ```bash
 docker run -p 2181:2181 -p 3181:3181 -p 4181:4181 -p 6650:6650 -p 6651:6651 -p 8080:8080 --rm -e REMOTE_MODE=false -e PULSAR_TLS_ENABLE=true ttbb/pulsar:mate

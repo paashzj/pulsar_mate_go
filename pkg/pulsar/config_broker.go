@@ -77,7 +77,10 @@ func configBrokerCommon(prop *gutil.ConfigProperties) {
 	prop.Set("brokerClientAuthenticationPlugin", config.PulsarClientAuthPlugin)
 	prop.SetBool("allowAutoTopicCreation", config.PulsarAllowAutoTopicCreation)
 	prop.SetBool("brokerDeleteInactivePartitionedTopicMetadataEnabled", config.PulsarBrokerDeleteInactivePartitionedTopicMetadataEnabled)
+	prop.Set("brokerEntryMetadataInterceptors", config.PulsarBrokerEntryMetadataInterceptors)
+	prop.SetBool("brokerDeleteInactiveTopicsEnabled", config.PulsarBrokerDeleteInactiveTopicsEnabled)
 	prop.SetBool("tlsAllowInsecureConnection", config.PulsarTlsAllowInsecureConnection)
+	prop.SetBool("exposingBrokerEntryMetadataToClientEnabled", config.PulsarExposingBrokerEntryMetadataToClientEnabled)
 	if config.BkTlsEnable {
 		prop.Set("bookkeeperTLSKeyFilePath", path.BkClientKeyCert)
 		prop.Set("bookkeeperTLSKeyStorePasswordPath", path.BkClientKeyPassword)
