@@ -18,6 +18,7 @@ var (
 	PulsarSuperUserRoles                                      string
 	PulsarClientAuthPlugin                                    string
 	PulsarAllowAutoTopicCreation                              bool
+	PulsarAllowAutoTopicCreationType                          string
 	PulsarBrokerDeleteInactivePartitionedTopicMetadataEnabled bool
 	PulsarBrokerEntryMetadataInterceptors                     string
 	PulsarBrokerDeleteInactiveTopicsEnabled                   bool
@@ -46,6 +47,7 @@ func init() {
 	PulsarSuperUserRoles = gutil.GetEnvStr("PULSAR_SUPER_USER_ROLES", "")
 	PulsarClientAuthPlugin = gutil.GetEnvStr("PULSAR_CLIENT_AUTH_PLUGIN", "")
 	PulsarAllowAutoTopicCreation = gutil.GetEnvBool("PULSAR_ALLOW_AUTO_TOPIC_CREATION", true)
+	PulsarAllowAutoTopicCreationType = gutil.GetEnvStr("PULSAR_ALLOW_AUTO_TOPIC_CREATION_TYPE", "non-partitioned")
 	PulsarBrokerDeleteInactivePartitionedTopicMetadataEnabled = gutil.GetEnvBool("PULSAR_BROKER_DELETE_INACTIVE_PARTITIONED_TOPIC_METADATA_ENABLED", false)
 	PulsarBrokerEntryMetadataInterceptors = gutil.GetEnvStr("PULSAR_BROKER_ENTRY_METADATA_INTERCEPTORS", "")
 	PulsarBrokerDeleteInactiveTopicsEnabled = gutil.GetEnvBool("PULSAR_BROKER_DELETE_INACTIVE_TOPICS_ENABLED", false)

@@ -76,6 +76,7 @@ func configBrokerCommon(prop *gutil.ConfigProperties) {
 	prop.Set("superUserRoles", config.PulsarSuperUserRoles)
 	prop.Set("brokerClientAuthenticationPlugin", config.PulsarClientAuthPlugin)
 	prop.SetBool("allowAutoTopicCreation", config.PulsarAllowAutoTopicCreation)
+	prop.Set("allowAutoTopicCreationType", config.PulsarAllowAutoTopicCreationType)
 	prop.SetBool("brokerDeleteInactivePartitionedTopicMetadataEnabled", config.PulsarBrokerDeleteInactivePartitionedTopicMetadataEnabled)
 	prop.Set("brokerEntryMetadataInterceptors", config.PulsarBrokerEntryMetadataInterceptors)
 	prop.SetBool("brokerDeleteInactiveTopicsEnabled", config.PulsarBrokerDeleteInactiveTopicsEnabled)
