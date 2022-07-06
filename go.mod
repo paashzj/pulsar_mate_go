@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/apache/pulsar-client-go v0.6.0
 	github.com/paashzj/gutil v0.0.10
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.8.0
 	go.uber.org/zap v1.21.0
 )
 
